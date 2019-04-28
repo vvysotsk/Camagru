@@ -23,7 +23,7 @@ function send_verification_email($toAddr, $toUsername, $token, $ip) {
   mail($toAddr, $subject, $message, $headers);
 }
 
-function send_forget_mail($toAddr, $toUsername, $password) {
+function send_restore_mail($toAddr, $toUsername, $password) {
   $subject = "[CAMAGRU] - Reset your password";
 
   $headers  = 'MIME-Version: 1.0' . "\r\n";

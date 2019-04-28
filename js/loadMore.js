@@ -29,9 +29,9 @@ function loadMore(lastMontageId, imagePerPages) {
         div.innerHTML =
         "<img onclick=\"showModal2(\'" + responseJSON[i]['img'] + "\');\" class=\"icon removable\" src=\"assembly/" + responseJSON[i]['img'] + "\"></img>" +
         "<div id=\"buttons-like\">" +
-          "<img onclick=\"onLike(this);\" class=\"button-like\" src=\"img/up.png\" data-image=\""+ responseJSON[i]['img'] +"\"></img>" +
+          "<img onclick=\"onLike(this);\" class=\"button-like\" src=\"img/like.png\" data-image=\""+ responseJSON[i]['img'] +"\"></img>" +
           "<span class=\"nb-like\" data-src=\""+ responseJSON[i]['img'] +"\">" + responseJSON[i]['likes'] + "</span>" +
-          "<img onclick=\"onDislike(this);\" class=\"button-dislike\" src=\"img/down.png\" data-image=\""+ responseJSON[i]['img'] +"\"></img>" +
+          "<img onclick=\"onDislike(this);\" class=\"button-dislike\" src=\"img/dislike.png\" data-image=\""+ responseJSON[i]['img'] +"\"></img>" +
           "<span class=\"nb-dislike\" data-src=\""+ responseJSON[i]['img'] +"\">" + responseJSON[i]['dislikes'] + "</span>" +
           commentsHTML +
         "</div>";
@@ -44,7 +44,7 @@ function loadMore(lastMontageId, imagePerPages) {
       }
     }
   };
-  xhr.open("POST", "./framework/getmontages.php?XDEBUG_SESSION_START=netbeans-xdebug", true);
+  xhr.open("POST", "./framework/getassemblpic.php?XDEBUG_SESSION_START=netbeans-xdebug", true);
   xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
   xhr.send("id=" + lastMontageId + "&nb=" + imagePerPages);
 }
@@ -69,10 +69,10 @@ function onLike(srcElement) {
   var xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function() {
     if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0) && xhr.responseText != null && xhr.responseText == "ADD") {
-      current_user_add_like(src);
+      current_user_addlike(src);
     } else if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0) && xhr.responseText != null && xhr.responseText == "CHANGE") {
       clientDislikes[src] = true;
-      current_user_add_like(src);
+      current_user_addlike(src);
     }
   };
   xhr.open("POST", "./framework/like.php?XDEBUG_SESSION_START=netbeans-xdebug", true);

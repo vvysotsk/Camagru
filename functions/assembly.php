@@ -1,6 +1,6 @@
 <?php
 
-function add_montage($userId, $imgPath) {
+function addlassembl($userId, $imgPath) {
   include_once '../config/database.php';
 
   try {
@@ -14,7 +14,7 @@ function add_montage($userId, $imgPath) {
     }
 }
 
-function get_all_montage() {
+function getallassembl() {
   include_once './config/database.php';
 
   try {
@@ -30,14 +30,13 @@ function get_all_montage() {
         $i++;
       }
       $query->closeCursor();
-
       return ($tab);
     } catch (PDOException $e) {
       return ($e->getMessage());
     }
 }
 
-function remove_montage($uid, $img) {
+function remove_assembl($uid, $img) {
   include_once '../config/database.php';
 
   try {
@@ -70,7 +69,7 @@ function remove_montage($uid, $img) {
     }
 }
 
-function get_montages($start, $nb) {
+function get_assemblpic($start, $nb) {
   include_once './config/database.php';
 
   try {
@@ -95,7 +94,6 @@ function get_montages($start, $nb) {
         $i++;
       }
       $query->closeCursor();
-
       return ($tab);
     } catch (PDOException $e) {
       $s;
@@ -104,7 +102,7 @@ function get_montages($start, $nb) {
     }
 }
 
-function get_montages2($start, $nb) {
+function get_assemblpic2($start, $nb) {
   include_once '../config/database.php';
 
   try {
@@ -129,7 +127,6 @@ function get_montages2($start, $nb) {
         $i++;
       }
       $query->closeCursor();
-
       return ($tab);
     } catch (PDOException $e) {
       $s;
@@ -169,7 +166,6 @@ function get_comments($imgSrc) {
       }
       $tab[$i] = null;
       $query->closeCursor();
-
       return ($tab);
     } catch (PDOException $e) {
       $ret = "";
@@ -195,7 +191,6 @@ function get_comments2($imgSrc) {
       }
       $tab[$i] = null;
       $query->closeCursor();
-
       return ($tab);
     } catch (PDOException $e) {
       $ret = "";
@@ -215,7 +210,6 @@ function get_userinfo_from_montage($imgSrc) {
 
       $val = $query->fetch();
       $query->closeCursor();
-
       return ($val);
     } catch (PDOException $e) {
       $ret = "";
@@ -223,5 +217,4 @@ function get_userinfo_from_montage($imgSrc) {
       return ($ret);
     }
 }
-
 ?>

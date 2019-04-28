@@ -6,5 +6,4 @@ $_SESSION['id'] = null;
 $_SESSION['username'] = null;
 
 header("Location: ../index.php");
-
 ?>

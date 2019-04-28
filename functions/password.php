@@ -25,11 +25,10 @@ function reset_password($userMail) {
       $query->execute(array(':password' => $passEncrypt, ':mail' => $userMail));
       $query->closeCursor();
 
-      send_forget_mail($userMail, $val['username'], $pass);
+      send_restore_mail($userMail, $val['username'], $pass);
       return (0);
     } catch (PDOException $e) {
       return ($e->getMessage());
     }
 }
-
 ?>

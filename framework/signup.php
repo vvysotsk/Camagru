@@ -1,9 +1,7 @@
 <?php
 session_start();
-
 include_once '../functions/signup.php';
 
-// retreive values
 $mail = $_POST['email'];
 $username = $_POST['username'];
 $password = $_POST['password'];
@@ -35,8 +33,6 @@ if (strlen($password) < 3) {
 }
 
 $url = $_SERVER['HTTP_HOST'] . str_replace("/framework/signup.php", "", $_SERVER['REQUEST_URI']);
-
 signup($mail, $username, $password, $url);
-
 header("Location: ../signup.php");
 ?>

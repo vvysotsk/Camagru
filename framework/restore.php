@@ -1,9 +1,7 @@
 <?php
 session_start();
-
 include '../functions/password.php';
 
-// retreive values
 $mail = $_POST['email'];
 
 $_SESSION['error'] = null;
@@ -19,5 +17,4 @@ if (($res = reset_password($mail)) !== 0) {
 }
 
 header("Location: ../restore.php");
-
 ?>

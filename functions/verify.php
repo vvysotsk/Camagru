@@ -14,7 +14,6 @@ try {
         return (-1);
     }
     $query->closeCursor();
-
     $query= $dbh->prepare("UPDATE users SET verified='Y' WHERE id=:id");
     $query->execute(array('id' => $val['id']));
     $query->closeCursor();
@@ -23,5 +22,4 @@ try {
     return (-2);
   }
 }
-
 ?>

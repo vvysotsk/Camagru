@@ -1,12 +1,11 @@
 <?php
 session_start();
-
 include_once("functions/assembly.php");
 include_once("functions/like.php");
 
 $imagePerPages = 5;
 
-$assemblpic = get_montages(0, $imagePerPages);
+$assemblpic = get_assemblpic(0, $imagePerPages);
 $more = false;
 $lastMontageId = 0;
 if ($assemblpic != "" && array_key_exists("more", $assemblpic)) {
@@ -44,10 +43,10 @@ if ($assemblpic != "" && array_key_exists("more", $assemblpic)) {
             <div class=\"img\" data-img=\"" . $assemblpic[$i]['img'] . "\">
               <img class=\"" . $class . "\" src=\"assembly/" . $assemblpic[$i]['img'] . "\"></img>
               <div id=\"buttons-like\">
-                <img class=\"button-like\" src=\"img/up.png\" data-image=\"". $assemblpic[$i]['img'] ."\"></img>
-                <span class=\"nb-like\" data-src=\"". $assemblpic[$i]['img'] ."\">" . get_nb_likes($assemblpic[$i]['img']) . "</span>
-                <img class=\"button-dislike\" src=\"img/down.png\" data-image=\"". $assemblpic[$i]['img'] ."\"></img>
-                <span class=\"nb-dislike\" data-src=\"". $assemblpic[$i]['img'] ."\">" . get_nb_dislikes($assemblpic[$i]['img']) . "</span>
+                <img class=\"button-like\" src=\"img/like.png\" data-image=\"". $assemblpic[$i]['img'] ."\"></img>
+                <span class=\"nb-like\" data-src=\"". $assemblpic[$i]['img'] ."\">" . getlikenb($assemblpic[$i]['img']) . "</span>
+                <img class=\"button-dislike\" src=\"img/dislike.png\" data-image=\"". $assemblpic[$i]['img'] ."\"></img>
+                <span class=\"nb-dislike\" data-src=\"". $assemblpic[$i]['img'] ."\">" . getdislnb($assemblpic[$i]['img']) . "</span>
               </div>"
               . $commentsHTML .
             "</div>";

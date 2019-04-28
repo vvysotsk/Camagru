@@ -1,5 +1,5 @@
 <?php
-function add_like($uid, $img, $type) {
+function addlike($uid, $img, $type) {
   include '../config/database.php';
   try {
       $dbh = new PDO($dbdsn, $user, $dbpass);
@@ -12,7 +12,7 @@ function add_like($uid, $img, $type) {
     }
 }
 
-function update_like($uid, $img, $type) {
+function updatelike($uid, $img, $type) {
   include '../config/database.php';
   try {
       $dbh = new PDO($dbdsn, $user, $dbpass);
@@ -25,7 +25,7 @@ function update_like($uid, $img, $type) {
     }
 }
 
-function get_like($uid, $img) {
+function getlike($uid, $img) {
   include '../config/database.php';
   try {
       $dbh = new PDO($dbdsn, $user, $dbpass);
@@ -40,7 +40,7 @@ function get_like($uid, $img) {
     }
 }
 
-function get_nb_likes($img) {
+function getlikenb($img) {
   include './config/database.php';
   try {
       $dbh = new PDO($dbdsn, $user, $dbpass);
@@ -59,7 +59,7 @@ function get_nb_likes($img) {
     }
 }
 
-function get_nb_likes2($img) {
+function getlikenb2($img) {
   include '../config/database.php';
   try {
       $dbh = new PDO($dbdsn, $user, $dbpass);
@@ -78,7 +78,7 @@ function get_nb_likes2($img) {
     }
 }
 
-function get_nb_dislikes($img) {
+function getdislnb($img) {
   include './config/database.php';
   try {
       $dbh = new PDO($dbdsn, $user, $dbpass);
@@ -97,7 +97,7 @@ function get_nb_dislikes($img) {
     }
 }
 
-function get_nb_dislikes2($img) {
+function getdislnb2($img) {
   include '../config/database.php';
   try {
       $dbh = new PDO($dbdsn, $user, $dbpass);
@@ -115,5 +115,4 @@ function get_nb_dislikes2($img) {
       return ($e->getMessage());
     }
 }
-
 ?>

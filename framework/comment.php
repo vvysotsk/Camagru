@@ -1,6 +1,5 @@
 <?php
 session_start();
-
 include_once("../functions/assembly.php");
 include_once("../functions/mail.php");
 
@@ -15,10 +14,9 @@ if ($uid == null || $comment == null || $comment == "" || $img == null || $img =
 
 $val = comment($uid, $img, $comment);
 $userInfos = get_userinfo_from_montage($img);
-
 $url = $_SERVER['HTTP_HOST'] . str_replace("/framework/comment.php", "", $_SERVER['REQUEST_URI']);
 
-if ($val == 0) {
+if ($val === 0) {
   if ($userInfos['username']) {
     send_comment_mail($userInfos['mail'], $userInfos['username'], $comment, $username, $img, $url);
   }

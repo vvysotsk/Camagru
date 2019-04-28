@@ -5,7 +5,6 @@ include_once '../functions/assembly.php';
 
 $assemblsrc = "../assembly/";
 
-// retreive values
 $img = $_POST['img'];
 $filter = $_POST['f'];
 $id = $_SESSION['id'];
@@ -64,7 +63,7 @@ imagecopymerge_alpha($destination, $copy, $destination_x, $destination_y, 0, 0, 
 $success = imagepng($destination, $assemblsrc . $uiid . ".png");
 
 if ($success) {
-  if (($val = add_montage($id, $uiid . '.png')) === 0){
+  if (($val = addlassembl($id, $uiid . '.png')) === 0){
       echo ($uiid . '.png');
   } else {
     echo $val;

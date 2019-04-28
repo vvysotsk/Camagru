@@ -10,10 +10,10 @@ for (var i=0; i < likes.length; i++) {
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function() {
       if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0) && xhr.responseText != null && xhr.responseText == "ADD") {
-        current_user_add_like(src);
+        current_user_addlike(src);
       } else if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0) && xhr.responseText != null && xhr.responseText == "CHANGE") {
         clientDislikes[src] = true;
-        current_user_add_like(src);
+        current_user_addlike(src);
       }
     };
     xhr.open("POST", "./framework/like.php?XDEBUG_SESSION_START=netbeans-xdebug", true);
@@ -56,7 +56,7 @@ function current_user_add_dislike(src) {
   clientLikes[src] = null;
 }
 
-function current_user_add_like(src) {
+function current_user_addlike(src) {
   clientLikes[src] = true;
   var span = document.querySelectorAll("[data-src='" + src + "']")[0];
   var prev = span.innerHTML;

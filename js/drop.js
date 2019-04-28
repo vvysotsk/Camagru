@@ -1,8 +1,8 @@
-var montage = document.getElementsByClassName("removable");
+var assemblpic = document.getElementsByClassName("removable");
 var parent = document.getElementById("miniatures");
 
-for (var i=0; i < montage.length; i++) {
-  montage[i].onclick = function(event) {
+for (var i=0; i < assemblpic.length; i++) {
+  assemblpic[i].onclick = function(event) {
     var pathToImg = (event.srcElement && event.srcElement.src) || (event.target && event.target.src);
     var srcTab = pathToImg.split('/');
     var src = srcTab[srcTab.length - 1];

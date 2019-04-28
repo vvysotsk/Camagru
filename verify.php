@@ -14,15 +14,11 @@ include_once './functions/verify.php';
     <?php include('footer.php') ?>
     <div id="login">
     <div class="title">VERIFY</div>
-    <?php if (verify($_GET["token"]) == 0) { ?>
-      <strong>
-        Your account as been verified
-      </strong>
-    <?php } else { ?>
-      <strong>
-        Account not found
-      </strong>
-    <?php } ?>
+    <?php 
+    if (verify($_GET["token"]) == 0)
+        echo "Your account has been verified";
+    else
+        echo "Account not found" ?>
     </div>
   </body>
 </HTML>

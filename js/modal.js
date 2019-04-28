@@ -1,5 +1,5 @@
 var modal = document.getElementById('modal');
-var montage = document.getElementsByClassName("icon");
+var assemblpic = document.getElementsByClassName("icon");
 var span = document.getElementsByClassName("close")[0];
 var imgModal = document.getElementById('img-modal');
 var send = document.getElementById('send-comment');
@@ -7,8 +7,8 @@ var comment = document.getElementById('comment');
 
 var imageSelected = null;
 
-for (var i=0; i < montage.length; i++) {
-  montage[i].onclick = showModal;
+for (var i=0; i < assemblpic.length; i++) {
+  assemblpic[i].onclick = showModal;
 }
 
 function showModal(event) {
@@ -18,7 +18,7 @@ function showModal(event) {
 }
 
 // When the user clicks on the button, open the modal
-montage.onclick = function() {
+assemblpic.onclick = function() {
     modal.style.display = "block";
 }
 
@@ -34,30 +34,46 @@ window.onclick = function(event) {
     }
 }
 
-send.onclick = function(event) {
-  var com = comment.value;
-  if (com == "" || com == null) {
-    return;
-  }
-
-  var tmp = imageSelected.split('/');
-  var imagePath = tmp[tmp.length - 1];
-
-  var xhr = new XMLHttpRequest();
-  xhr.onreadystatechange = function() {
-    if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0) && xhr.responseText != null && xhr.responseText != "") {
-      comment.value = "";
-      modal.style.display = "none";
-      var div = document.querySelectorAll("[data-img='" + imagePath + "']")[0];
-      var span = document.createElement('span');
-      span.innerHTML = xhr.responseText + ": " + escapeHtml(com);
-      span.setAttribute("class","comment");
-      div.appendChild(span);
+function make_ajax_request(dest, param, success_callback, error_callback) {
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4) {
+            if ((xhr.status == 200 || xhr.status == 0) && xhr.responseText != null && xhr.responseText != "") {
+                success_callback(xhr.responseText);
+            } else
+                error_callback();
+        }
     }
-  };
-  xhr.open("POST", "./framework/comment.php?XDEBUG_SESSION_START=netbeans-xdebug", true);
-  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-  xhr.send("img=" + imagePath + "&comment=" + com);
+    xhr.open("POST", dest + "?XDEBUG_SESSION_START=netbeans-xdebug", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send(param);
+}
+
+send.onclick = function (event) {
+    var com = comment.value;
+    if (com == "" || com == null) {
+        return;
+    }
+
+    var tmp = imageSelected.split('/');
+    var imagePath = tmp[tmp.length - 1];
+
+    make_ajax_request("./framework/comment.php",
+            "img=" + imagePath + "&comment=" + com,
+            function (responseText) {
+                var div = document.querySelectorAll("[data-img='" + imagePath + "']")[0];
+                var span = document.createElement('span');
+                span.innerHTML = responseText + ": " + escapeHtml(com);
+                span.setAttribute("class", "comment");
+                div.appendChild(span);
+                comment.value = "";
+                modal.style.display = "none";
+            },
+            function () {
+                alert("Error, unable to add comment");
+                comment.value = "";
+                modal.style.display = "none";
+            });
 }
 
 

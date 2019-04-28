@@ -19,7 +19,6 @@ function signup($mail, $username, $password, $host) {
           }
           $query->closeCursor();
 
-          // encrypt password
           $password = hash("whirlpool", $password);
 
           $query= $dbh->prepare("INSERT INTO users (username, mail, password, token) VALUES (:username, :mail, :password, :token)");
@@ -33,5 +32,4 @@ function signup($mail, $username, $password, $host) {
           $_SESSION['error'] = "ERROR: ".$e->getMessage();
       }
 }
-
 ?>

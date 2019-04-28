@@ -1,12 +1,11 @@
 <?php
 session_start();
-
 include_once("../functions/assembly.php");
 
 $uid = $_SESSION['id'];
 $src = $_POST['src'];
 
-$val = remove_montage($uid, $src);
+$val = remove_assembl($uid, $src);
 
 if ($val == 0) {
   echo "OK";
@@ -14,5 +13,4 @@ if ($val == 0) {
 } else {
   echo "KO";
 }
-
 ?>

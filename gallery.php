@@ -1,7 +1,7 @@
 <?php
 session_start();
 include_once("functions/assembly.php");
-$assemblpic = get_all_montage();
+$assemblpic = getallassembl();
 ?>
 <!DOCTYPE html>
 <HTML>

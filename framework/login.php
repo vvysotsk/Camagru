@@ -1,9 +1,7 @@
 <?php
 session_start();
-
 include '../functions/login.php';
 
-// retreive values
 $mail = $_POST['email'];
 $password = $_POST['password'];
 
@@ -17,5 +15,4 @@ if (($val = log_user($mail, $password)) == -1) {
 }
 
 header("Location: ../index.php");
-
 ?>

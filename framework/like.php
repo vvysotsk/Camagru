@@ -14,13 +14,13 @@ if ($uid == null
   return;
 }
 
-$ret = get_like($uid, $img);
+$ret = getlike($uid, $img);
 
 if ($ret != null && array_key_exists('type', $ret)) {
   if ($ret['type'] == $type) {
     echo "KO";
   } else {
-    $val = update_like($uid, $img, $type);
+    $val = updatelike($uid, $img, $type);
     if ($val == 0) {
       echo "CHANGE";
     } else {
@@ -28,7 +28,7 @@ if ($ret != null && array_key_exists('type', $ret)) {
     }
   }
 } else {
-  $val = add_like($uid, $img, $type);
+  $val = addlike($uid, $img, $type);
 
   if ($val == 0) {
     echo "ADD";

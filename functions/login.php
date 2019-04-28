@@ -17,12 +17,10 @@ function log_user($userMail, $password) {
           return (-1);
       }
       $query->closeCursor();
-
       return ($val);
     } catch (PDOException $e) {
       $v['err'] = $e->getMessage();
       return ($v);
     }
 }
-
 ?>
