@@ -3,10 +3,9 @@ session_start();
 include '../functions/password.php';
 
 $mail = $_POST['email'];
-
 $_SESSION['error'] = null;
 
-if (($res = reset_password($mail)) !== 0) {
+if (($res = passres($mail)) !== 0) {
   if ($res == -1) {
     $_SESSION['error'] = "user not found";
   } else {

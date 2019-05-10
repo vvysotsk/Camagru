@@ -16,18 +16,18 @@ $assemblpic = getallassembl();
         <?php if(isset($_SESSION['id'])) { ?>
         <div class="main">
     		  <div class="select">
-      			<img class="thumbnail" src="img/cadre.png"></img>
-      			<input id="cadre.png" type="radio" name="img" value="./img/cadre.png" onclick="onCheckBoxChecked(this)">
-      			<img class="thumbnail" src="img/cigarette.png"></img>
-      			<input id="cigarette.png" type="radio" name="img" value="./img/cigarette.png" onclick="onCheckBoxChecked(this)">
-      			<img class="thumbnail" src="img/hat.png"></img>
-      			<input id="hat.png" type="radio" name="img" value="./img/hat.png" onclick="onCheckBoxChecked(this)">
+      			<img class="thumbnail" src="img/frame.png"></img>
+      			<input id="frame.png" type="radio" name="img" value="./img/frame.png" onclick="onCheckBoxChecked(this)">
+      			<img class="thumbnail" src="img/smoke.png"></img>
+      			<input id="smoke.png" type="radio" name="img" value="./img/smoke.png" onclick="onCheckBoxChecked(this)">
+      			<img class="thumbnail" src="img/kitty.png"></img>
+      			<input id="kitty.png" type="radio" name="img" value="./img/kitty.png" onclick="onCheckBoxChecked(this)">
     		  </div>
           <video width="100%" autoplay="true" id="webcam"></video>
           <div id="camera-not-available">CAMERA NOT AVAILABLE</div>
-          <img id="hat" style="display:none;" src="img/hat.png"></img>
-          <img id="cigarette" style="display:none;" src="img/cigarette.png"></img>
-          <img id="cadre" style="display:none;" src="img/cadre.png"></img>
+          <img id="hat" style="display:none;" src="img/kitty.png"></img>
+          <img id="cigarette" style="display:none;" src="img/smoke.png"></img>
+          <img id="cadre" style="display:none;" src="img/frame.png"></img>
     		  <div class="capture" id="pickImage">
             <img class="camera" src="img/camera.png"></img>
           </div>
@@ -63,6 +63,7 @@ $assemblpic = getallassembl();
     <?php include('footer.php') ?>
   </body>
   <?php if(isset($_SESSION['id'])) { ?>
+  <script type="text/javascript" src="js/util.js"></script>
   <script type="text/javascript" src="js/webcam.js"></script>
   <script type="text/javascript" src="js/drop.js"></script>
   <script type="text/javascript" src="js/import.js"></script>

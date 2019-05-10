@@ -20,9 +20,9 @@ fileInput.onchange = function (event) {
       var split = img.src.split("/");
       var file = split[split.length - 1];
 
-      if (file === "cadre.png") {
+      if (file === "frame.png") {
         canvas.getContext("2d").drawImage(img, 0, 0, 1024, 768, 0, 0, 640, 480);
-      } else if (file === "cigarette.png") {
+      } else if (file === "smoke.png") {
         canvas.getContext("2d").drawImage(img, 0, 0, 1024, 768, 100, 200, 240, 180);
       } else {
         canvas.getContext("2d").drawImage(img, 0, 0, 1024, 768, 180, 0, 240, 180);
@@ -38,31 +38,28 @@ fileInput.onchange = function (event) {
 }
 
 function sendMontage(imgData64, filterImg) {
-  var xhr = new XMLHttpRequest();
-  xhr.onreadystatechange = function() {
-    if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0) && xhr.responseText != null && xhr.responseText != "") {
-      var newImg = document.createElement("IMG");
-      newImg.className = "icon removable";
-      newImg.src = "assembly/" + xhr.responseText;
-      newImg.onclick = function(event) {
-        var pathToImg = (event.srcElement && event.srcElement.src) || (event.target && event.target.src);
-        var srcTab = pathToImg.split('/');
-        var src = srcTab[srcTab.length - 1];
-
-        var xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function() {
-          if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0) && xhr.responseText == "OK") {
-            miniatures.removeChild(event.srcElement || event.target);
-          }
-        };
-        xhr.open("POST", "./framework/removeassembly.php?XDEBUG_SESSION_START=netbeans-xdebug", true);
-        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        xhr.send("src=" + src);
-      }
-      miniatures.appendChild(newImg);
-    }
-  };
-  xhr.open("POST", "./framework/assembly.php?XDEBUG_SESSION_START=netbeans-xdebug", true);
-  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-  xhr.send("img=" + "../img/" + filterImg + "&f=" + imgData64);
+    make_ajax_request("./framework/assembly.php",
+            "img=" + "../img/" + filterImg + "&f=" + imgData64,
+            function (responseText) {
+                var newImg = document.createElement("IMG");
+                newImg.className = "icon removable";
+                newImg.src = "assembly/" + responseText;
+                newImg.onclick = function (event) {
+                    var pathToImg = (event.srcElement && event.srcElement.src) || (event.target && event.target.src);
+                    var srcTab = pathToImg.split('/');
+                    var src = srcTab[srcTab.length - 1];
+                    make_ajax_request("./framework/removeassembly.php",
+                            "src=" + src,
+                            function () {
+                                miniatures.removeChild(event.srcElement || event.target);
+                            },
+                            function () {
+                                alert("Error");
+                            });
+                }
+                miniatures.appendChild(newImg);
+            },
+            function () {
+                alert("Error, unable to import file");
+            });
 }

@@ -4,9 +4,9 @@ function addlassembl($userId, $imgPath) {
   include_once '../config/database.php';
 
   try {
-      $dbh = new PDO($dbdsn, $user, $dbpass);
-      $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-      $query= $dbh->prepare("INSERT INTO gallery (userid, img) VALUES (:userid, :img)");
+      $condb = new PDO($dbdsn, $user, $dbpass);
+      $condb->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      $query= $condb->prepare("INSERT INTO gallery (userid, img) VALUES (:userid, :img)");
       $query->execute(array(':userid' => $userId, ':img' => $imgPath));
       return (0);
     } catch (PDOException $e) {
@@ -18,19 +18,19 @@ function getallassembl() {
   include_once './config/database.php';
 
   try {
-      $dbh = new PDO($dbdsn, $user, $dbpass);
-      $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-      $query= $dbh->prepare("SELECT userid, img FROM gallery");
+      $condb = new PDO($dbdsn, $user, $dbpass);
+      $condb->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      $query= $condb->prepare("SELECT userid, img FROM gallery");
       $query->execute();
 
       $i = 0;
-      $tab = null;
+      $arasml = null;
       while ($val = $query->fetch()) {
-        $tab[$i] = $val;
+        $arasml[$i] = $val;
         $i++;
       }
       $query->closeCursor();
-      return ($tab);
+      return ($arasml);
     } catch (PDOException $e) {
       return ($e->getMessage());
     }
@@ -40,9 +40,9 @@ function remove_assembl($uid, $img) {
   include_once '../config/database.php';
 
   try {
-      $dbh = new PDO($dbdsn, $user, $dbpass);
-      $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-      $query= $dbh->prepare("SELECT * FROM gallery WHERE img=:img AND userid=:userid");
+      $condb = new PDO($dbdsn, $user, $dbpass);
+      $condb->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      $query= $condb->prepare("SELECT * FROM gallery WHERE img=:img AND userid=:userid");
       $query->execute(array(':img' => $img, ':userid' => $uid));
 
       $val = $query->fetch();
@@ -52,15 +52,15 @@ function remove_assembl($uid, $img) {
       }
       $query->closeCursor();
 
-      $query= $dbh->prepare("DELETE FROM `like` WHERE galleryid=:galleryid");
+      $query= $condb->prepare("DELETE FROM `like` WHERE galleryid=:galleryid");
       $query->execute(array(':galleryid' => $val['id']));
       $query->closeCursor();
 
-      $query= $dbh->prepare("DELETE FROM comment WHERE galleryid=:galleryid");
+      $query= $condb->prepare("DELETE FROM comment WHERE galleryid=:galleryid");
       $query->execute(array(':galleryid' => $val['id']));
       $query->closeCursor();
 
-      $query= $dbh->prepare("DELETE FROM gallery WHERE img=:img AND userid=:userid");
+      $query= $condb->prepare("DELETE FROM gallery WHERE img=:img AND userid=:userid");
       $query->execute(array(':img' => $img, ':userid' => $uid));
       $query->closeCursor();
       return (0);
@@ -69,80 +69,78 @@ function remove_assembl($uid, $img) {
     }
 }
 
-function get_assemblpic($start, $nb) {
+function get_assemblpic($start, $counter) {
   include_once './config/database.php';
 
   try {
       if ($start < 0) {
         $start = 0;
       }
-      $dbh = new PDO($dbdsn, $user, $dbpass);
-      $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-      $query= $dbh->prepare("SELECT userid, img, id FROM gallery WHERE id > :id ORDER BY id ASC LIMIT :lim");
-      $query->bindValue(':lim', $nb + 1, PDO::PARAM_INT);
+      $condb = new PDO($dbdsn, $user, $dbpass);
+      $condb->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      $query= $condb->prepare("SELECT userid, img, id FROM gallery WHERE id > :id ORDER BY id ASC LIMIT :lim");
+      $query->bindValue(':lim', $counter + 1, PDO::PARAM_INT);
       $query->bindValue(':id', $start, PDO::PARAM_INT);
       $query->execute();
 
       $i = 0;
-      $tab = null;
+      $arasml = null;
       while (($val = $query->fetch())) {
-        if ($i >= $nb) {
-          $tab['more'] = true;
+        if ($i >= $counter) {
+          $arasml['more'] = true;
         } else {
-          $tab[$i] = $val;
+          $arasml[$i] = $val;
         }
         $i++;
       }
       $query->closeCursor();
-      return ($tab);
+      return ($arasml);
     } catch (PDOException $e) {
-      $s;
-      $s['error'] = $e->getMessage();
-      return ($s);
+      $er['error'] = $e->getMessage();
+      return ($er);
     }
 }
 
-function get_assemblpic2($start, $nb) {
+function insasmblpic($start, $counter) {
   include_once '../config/database.php';
 
   try {
       if ($start < 0) {
         $start = 0;
       }
-      $dbh = new PDO($dbdsn, $user, $dbpass);
-      $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-      $query= $dbh->prepare("SELECT userid, img, id FROM gallery WHERE id > :id ORDER BY id ASC LIMIT :lim");
-      $query->bindValue(':lim', $nb + 1, PDO::PARAM_INT);
+      $condb = new PDO($dbdsn, $user, $dbpass);
+      $condb->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      $query= $condb->prepare("SELECT userid, img, id FROM gallery WHERE id > :id ORDER BY id ASC LIMIT :lim");
+      $query->bindValue(':lim', $counter + 1, PDO::PARAM_INT);
       $query->bindValue(':id', $start, PDO::PARAM_INT);
       $query->execute();
 
       $i = 0;
-      $tab = null;
+      $arasml = null;
       while (($val = $query->fetch())) {
-        if ($i >= $nb) {
-          $tab['more'] = true;
+        if ($i >= $counter) {
+          $arasml['more'] = true;
         } else {
-          $tab[$i] = $val;
+          $arasml[$i] = $val;
         }
         $i++;
       }
       $query->closeCursor();
-      return ($tab);
+      return ($arasml);
     } catch (PDOException $e) {
-      $s;
-      $s['error'] = $e->getMessage();
-      return ($s);
+      $er['error'] = $e->getMessage();
+      return ($er);
     }
 }
 
-function comment($uid, $imgSrc, $comment) {
+function comment($uid, $imgSrc, $comtxt) {
   include_once '../config/database.php';
 
   try {
-      $dbh = new PDO($dbdsn, $user, $dbpass);
-      $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-      $query= $dbh->prepare("INSERT INTO comment(userid, galleryid, comment) SELECT :userid, id, :comment FROM gallery WHERE img=:img");
-      $query->execute(array(':userid' => $uid, ':comment' => $comment, ':img' => $imgSrc));
+      $condb = new PDO($dbdsn, $user, $dbpass);
+      $condb->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      $query= $condb->prepare("INSERT INTO comment(userid, galleryid, comment) SELECT :userid, id, :comment FROM gallery WHERE img=:img");
+      $query->execute(array(':userid' => $uid, ':comment' => $comtxt, ':img' => $imgSrc));
       return (0);
     } catch (PDOException $e) {
       return ($e->getMessage());
@@ -153,68 +151,65 @@ function get_comments($imgSrc) {
   include './config/database.php';
 
   try {
-      $dbh = new PDO($dbdsn, $user, $dbpass);
-      $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-      $query= $dbh->prepare("SELECT c.comment, u.username FROM comment AS c, users AS u, gallery AS g WHERE g.img=:img AND g.id=c.galleryid AND c.userid=u.id");
+      $condb = new PDO($dbdsn, $user, $dbpass);
+      $condb->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      $query= $condb->prepare("SELECT c.comment, u.username FROM comment AS c, users AS u, gallery AS g WHERE g.img=:img AND g.id=c.galleryid AND c.userid=u.id");
       $query->execute(array(':img' => $imgSrc));
 
       $i = 0;
-      $tab = "";
+      $arasml = "";
       while ($val = $query->fetch()) {
-        $tab[$i] = $val;
+        $arasml[$i] = $val;
         $i++;
       }
-      $tab[$i] = null;
+      $arasml[$i] = null;
       $query->closeCursor();
-      return ($tab);
+      return ($arasml);
     } catch (PDOException $e) {
-      $ret = "";
-      $ret['error'] = $e->getMessage();
-      return ($ret);
+      $keyr['error'] = $e->getMessage();
+      return ($keyr);
     }
 }
 
-function get_comments2($imgSrc) {
+function inscomment($imgSrc) {
   include '../config/database.php';
 
   try {
-      $dbh = new PDO($dbdsn, $user, $dbpass);
-      $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-      $query= $dbh->prepare("SELECT c.comment, u.username FROM comment AS c, users AS u, gallery AS g WHERE g.img=:img AND g.id=c.galleryid AND c.userid=u.id");
+      $condb = new PDO($dbdsn, $user, $dbpass);
+      $condb->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      $query= $condb->prepare("SELECT c.comment, u.username FROM comment AS c, users AS u, gallery AS g WHERE g.img=:img AND g.id=c.galleryid AND c.userid=u.id");
       $query->execute(array(':img' => $imgSrc));
 
       $i = 0;
-      $tab = "";
+      $arasml = "";
       while ($val = $query->fetch()) {
-        $tab[$i] = $val;
+        $arasml[$i] = $val;
         $i++;
       }
-      $tab[$i] = null;
+      $arasml[$i] = null;
       $query->closeCursor();
-      return ($tab);
+      return ($arasml);
     } catch (PDOException $e) {
-      $ret = "";
-      $ret['error'] = $e->getMessage();
-      return ($ret);
+      $keyr['error'] = $e->getMessage();
+      return ($keyr);
     }
 }
 
-function get_userinfo_from_montage($imgSrc) {
+function aseembluserinfo($imgSrc) {
   include '../config/database.php';
 
   try {
-      $dbh = new PDO($dbdsn, $user, $dbpass);
-      $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-      $query= $dbh->prepare("SELECT mail, username FROM users, gallery WHERE gallery.img=:img AND users.id=gallery.userid");
+      $condb = new PDO($dbdsn, $user, $dbpass);
+      $condb->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      $query= $condb->prepare("SELECT mail, username FROM users, gallery WHERE gallery.img=:img AND users.id=gallery.userid");
       $query->execute(array(':img' => $imgSrc));
 
       $val = $query->fetch();
       $query->closeCursor();
       return ($val);
     } catch (PDOException $e) {
-      $ret = "";
-      $ret['error'] = $e->getMessage();
-      return ($ret);
+      $keyr['error'] = $e->getMessage();
+      return ($keyr);
     }
 }
 ?>

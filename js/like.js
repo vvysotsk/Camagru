@@ -4,40 +4,42 @@ var dislikes = document.getElementsByClassName("button-dislike");
 var clientLikes = [];
 var clientDislikes = [];
 
-for (var i=0; i < likes.length; i++) {
-  likes[i].onclick = function(event) {
-    var src = (event.srcElement && event.srcElement.getAttribute('data-image') || event.target.getAttribute('data-image'));
-    var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function() {
-      if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0) && xhr.responseText != null && xhr.responseText == "ADD") {
-        current_user_addlike(src);
-      } else if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0) && xhr.responseText != null && xhr.responseText == "CHANGE") {
-        clientDislikes[src] = true;
-        current_user_addlike(src);
-      }
-    };
-    xhr.open("POST", "./framework/like.php?XDEBUG_SESSION_START=netbeans-xdebug", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send("img=" + src + "&type=L");
-  }
+for (var i = 0; i < likes.length; i++) {
+    likes[i].onclick = function (event) {
+        var src = (event.srcElement && event.srcElement.getAttribute('data-image') || event.target.getAttribute('data-image'));
+        make_ajax_request("./framework/like.php",
+                "img=" + src + "&type=L",
+                function (responseText) {
+                    if (responseText == "ADD LIKE") {
+                        current_user_addlike(src);
+                    } else if (responseText == "LIKE CHANGE") {
+                        clientDislikes[src] = true;
+                        current_user_addlike(src);
+                    }
+                },
+                function () {
+                    alert("Error, unable to add like");
+                });
+    }
 }
 
-for (var i=0; i < dislikes.length; i++) {
-  dislikes[i].onclick = function(event) {
-    var src = (event.srcElement && event.srcElement.getAttribute('data-image') || event.target.getAttribute('data-image'));
-    var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function() {
-      if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0) && xhr.responseText != null && xhr.responseText == "ADD") {
-        current_user_add_dislike(src);
-      } else if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0) && xhr.responseText != null && xhr.responseText == "CHANGE") {
-        clientLikes[src] = true;
-        current_user_add_dislike(src);
-      }
-    };
-    xhr.open("POST", "./framework/like.php?XDEBUG_SESSION_START=netbeans-xdebug", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send("img=" + src + "&type=D");
-  }
+for (var i = 0; i < dislikes.length; i++) {
+    dislikes[i].onclick = function (event) {
+        var src = (event.srcElement && event.srcElement.getAttribute('data-image') || event.target.getAttribute('data-image'));
+        make_ajax_request("./framework/like.php",
+                "img=" + src + "&type=D",
+                function (responseText) {
+                    if (responseText == "ADD LIKE") {
+                        current_user_add_dislike(src);
+                    } else if (responseText == "LIKE CHANGE") {
+                        clientLikes[src] = true;
+                        current_user_add_dislike(src);
+                    }
+                },
+                function () {
+                    alert("Error, unable to add like");
+                });
+    }
 }
 
 function current_user_add_dislike(src) {

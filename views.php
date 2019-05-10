@@ -7,10 +7,10 @@ $imagePerPages = 5;
 
 $assemblpic = get_assemblpic(0, $imagePerPages);
 $more = false;
-$lastMontageId = 0;
+$lastapicId = 0;
 if ($assemblpic != "" && array_key_exists("more", $assemblpic)) {
   $more = true;
-  $lastMontageId = $assemblpic[count($assemblpic) - 2]['id'];
+  $lastapicId = $assemblpic[count($assemblpic) - 2]['id'];
 }
 ?>
 <!DOCTYPE html>
@@ -70,10 +70,11 @@ if ($assemblpic != "" && array_key_exists("more", $assemblpic)) {
       </div>
     </div>
     <?php if ($more == true) { ?>
-    <div id="load-more" onclick="loadMore(<?php echo($lastMontageId) ?>, <?php echo($imagePerPages) ?>)">... LOAD MORE</div>
+    <div id="load-more" onclick="loadMore(<?php echo($lastapicId) ?>, <?php echo($imagePerPages) ?>)">... LOAD MORE</div>
     <?php } ?>
     <?php include('footer.php') ?>
   </body>
+  <script type="text/javascript" src="js/util.js"></script>
   <script type="text/javascript" src="js/modal.js"></script>
   <script type="text/javascript" src="js/like.js"></script>
   <script type="text/javascript" src="js/loadMore.js"></script>

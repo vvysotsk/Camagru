@@ -6,47 +6,44 @@ var imgModal = document.getElementById('img-modal');
 
 var last = null;
 
-function loadMore(lastMontageId, imagePerPages) {
-  if (last != null) {
-    lastMontageId = last;
-  }
-  var xhr = new XMLHttpRequest();
-  xhr.onreadystatechange = function() {
-    if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0) && xhr.responseText != null && xhr.responseText != "") {
-      if (xhr.responseText === "KO") {
-        return;
-      }
-      var responseJSON = JSON.parse(xhr.responseText);
-      last = responseJSON[responseJSON.length - 1]['id'];
-      for (var i = 0; responseJSON[i]; i++) {
-        var div = document.createElement("div");
-
-        var commentsHTML = "";
-        for (var j = 0; responseJSON[i]['comments'] != null && responseJSON[i]['comments'][j] != null; j++) {
-          commentsHTML += "<span class=\"comment\">" + escapeHtml(responseJSON[i]['comments'][j]['username']) + ": " + escapeHtml(responseJSON[i]['comments'][j]['comment']) + "</span>";
-        }
-
-        div.innerHTML =
-        "<img onclick=\"showModal2(\'" + responseJSON[i]['img'] + "\');\" class=\"icon removable\" src=\"assembly/" + responseJSON[i]['img'] + "\"></img>" +
-        "<div id=\"buttons-like\">" +
-          "<img onclick=\"onLike(this);\" class=\"button-like\" src=\"img/like.png\" data-image=\""+ responseJSON[i]['img'] +"\"></img>" +
-          "<span class=\"nb-like\" data-src=\""+ responseJSON[i]['img'] +"\">" + responseJSON[i]['likes'] + "</span>" +
-          "<img onclick=\"onDislike(this);\" class=\"button-dislike\" src=\"img/dislike.png\" data-image=\""+ responseJSON[i]['img'] +"\"></img>" +
-          "<span class=\"nb-dislike\" data-src=\""+ responseJSON[i]['img'] +"\">" + responseJSON[i]['dislikes'] + "</span>" +
-          commentsHTML +
-        "</div>";
-        div.className = "img";
-        div.setAttribute("data-img", responseJSON[i]['img']);
-        views.appendChild(div);
-      }
-      if (typeof(responseJSON['more']) === 'undefined') {
-        loadMoreButton.style.display = "none";
-      }
+function loadMore(lastapicId, imagePerPages) {
+    if (last != null) {
+        lastapicId = last;
     }
-  };
-  xhr.open("POST", "./framework/getassemblpic.php?XDEBUG_SESSION_START=netbeans-xdebug", true);
-  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-  xhr.send("id=" + lastMontageId + "&nb=" + imagePerPages);
+    make_ajax_request("./framework/getassemblpic.php",
+            "img=" + src + "&type=D",
+            function (responseText) {
+                if (responseText === "KO") {
+                    return;
+                }
+                var responseJSON = JSON.parse(responseText);
+                last = responseJSON[responseJSON.length - 1]['id'];
+                for (var i = 0; responseJSON[i]; i++) {
+                    var div = document.createElement("div");
+                    var commentsHTML = "";
+                    for (var j = 0; responseJSON[i]['comments'] != null && responseJSON[i]['comments'][j] != null; j++) {
+                        commentsHTML += "<span class=\"comment\">" + escapeHtml(responseJSON[i]['comments'][j]['username']) + ": " + escapeHtml(responseJSON[i]['comments'][j]['comment']) + "</span>";
+                    }
+                    div.innerHTML =
+                            "<img onclick=\"showModal2(\'" + responseJSON[i]['img'] + "\');\" class=\"icon removable\" src=\"assembly/" + responseJSON[i]['img'] + "\"></img>" +
+                            "<div id=\"buttons-like\">" +
+                            "<img onclick=\"onLike(this);\" class=\"button-like\" src=\"img/like.png\" data-image=\"" + responseJSON[i]['img'] + "\"></img>" +
+                            "<span class=\"nb-like\" data-src=\"" + responseJSON[i]['img'] + "\">" + responseJSON[i]['likes'] + "</span>" +
+                            "<img onclick=\"onDislike(this);\" class=\"button-dislike\" src=\"img/dislike.png\" data-image=\"" + responseJSON[i]['img'] + "\"></img>" +
+                            "<span class=\"nb-dislike\" data-src=\"" + responseJSON[i]['img'] + "\">" + responseJSON[i]['dislikes'] + "</span>" +
+                            commentsHTML +
+                            "</div>";
+                    div.className = "img";
+                    div.setAttribute("data-img", responseJSON[i]['img']);
+                    views.appendChild(div);
+                }
+                if (typeof (responseJSON['more']) === 'undefined') {
+                    loadMoreButton.style.display = "none";
+                }
+            },
+            function () {
+                alert("Error, unable to load file");
+            });
 }
 
 function escapeHtml(unsafe) {
@@ -68,9 +65,9 @@ function onLike(srcElement) {
   var src = srcElement.getAttribute('data-image');
   var xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function() {
-    if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0) && xhr.responseText != null && xhr.responseText == "ADD") {
+    if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0) && xhr.responseText != null && xhr.responseText == "ADD LIKE") {
       current_user_addlike(src);
-    } else if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0) && xhr.responseText != null && xhr.responseText == "CHANGE") {
+    } else if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0) && xhr.responseText != null && xhr.responseText == "LIKE CHANGE") {
       clientDislikes[src] = true;
       current_user_addlike(src);
     }
@@ -84,9 +81,9 @@ function onDislike(srcElement) {
   var src = srcElement.getAttribute('data-image');
   var xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function() {
-    if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0) && xhr.responseText != null && xhr.responseText == "ADD") {
+    if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0) && xhr.responseText != null && xhr.responseText == "ADD LIKE") {
       current_user_add_dislike(src);
-    } else if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0) && xhr.responseText != null && xhr.responseText == "CHANGE") {
+    } else if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0) && xhr.responseText != null && xhr.responseText == "LIKE CHANGE") {
       clientLikes[src] = true;
       current_user_add_dislike(src);
     }

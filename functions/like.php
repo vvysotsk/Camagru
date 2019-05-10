@@ -1,24 +1,24 @@
 <?php
-function addlike($uid, $img, $type) {
+function addlike($uid, $img, $ldval) {
   include '../config/database.php';
   try {
-      $dbh = new PDO($dbdsn, $user, $dbpass);
-      $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-      $query= $dbh->prepare("INSERT INTO `like`(userid, galleryid, type) SELECT :userid, id, :type FROM gallery WHERE img=:img");
-      $query->execute(array(':userid' => $uid, ':img' => $img, ':type' => $type));
+      $condb = new PDO($dbdsn, $user, $dbpass);
+      $condb->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      $query= $condb->prepare("INSERT INTO `like`(userid, galleryid, type) SELECT :userid, id, :type FROM gallery WHERE img=:img");
+      $query->execute(array(':userid' => $uid, ':img' => $img, ':type' => $ldval));
       return (0);
     } catch (PDOException $e) {
       return ($e->getMessage());
     }
 }
 
-function updatelike($uid, $img, $type) {
+function updatelike($uid, $img, $ldval) {
   include '../config/database.php';
   try {
-      $dbh = new PDO($dbdsn, $user, $dbpass);
-      $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-      $query= $dbh->prepare("UPDATE `like`, gallery SET `like`.type=:type WHERE gallery.img=:img AND gallery.userid=:userid AND `like`.galleryid=gallery.id");
-      $query->execute(array(':userid' => $uid, ':img' => $img, ':type' => $type));
+      $condb = new PDO($dbdsn, $user, $dbpass);
+      $condb->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      $query= $condb->prepare("UPDATE `like`, gallery SET `like`.type=:type WHERE gallery.img=:img AND gallery.userid=:userid AND `like`.galleryid=gallery.id");
+      $query->execute(array(':userid' => $uid, ':img' => $img, ':type' => $ldval));
       return (0);
     } catch (PDOException $e) {
       return ($e->getMessage());
@@ -28,9 +28,9 @@ function updatelike($uid, $img, $type) {
 function getlike($uid, $img) {
   include '../config/database.php';
   try {
-      $dbh = new PDO($dbdsn, $user, $dbpass);
-      $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-      $query= $dbh->prepare("SELECT type FROM `like`, gallery WHERE `like`.userid=:userid AND `like`.galleryid=gallery.id AND gallery.img=:img");
+      $condb = new PDO($dbdsn, $user, $dbpass);
+      $condb->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      $query= $condb->prepare("SELECT type FROM `like`, gallery WHERE `like`.userid=:userid AND `like`.galleryid=gallery.id AND gallery.img=:img");
       $query->execute(array(':userid' => $uid, ':img' => $img));
       $val = $query->fetch();
       $query->closeCursor();
@@ -43,9 +43,9 @@ function getlike($uid, $img) {
 function getlikenb($img) {
   include './config/database.php';
   try {
-      $dbh = new PDO($dbdsn, $user, $dbpass);
-      $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-      $query= $dbh->prepare("SELECT type FROM `like`, gallery WHERE `like`.galleryid=gallery.id AND gallery.img=:img AND `like`.type='L'");
+      $condb = new PDO($dbdsn, $user, $dbpass);
+      $condb->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      $query= $condb->prepare("SELECT type FROM `like`, gallery WHERE `like`.galleryid=gallery.id AND gallery.img=:img AND `like`.type='L'");
       $query->execute(array(':img' => $img));
 
       $count = 0;
@@ -59,12 +59,12 @@ function getlikenb($img) {
     }
 }
 
-function getlikenb2($img) {
+function likecount($img) {
   include '../config/database.php';
   try {
-      $dbh = new PDO($dbdsn, $user, $dbpass);
-      $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-      $query= $dbh->prepare("SELECT type FROM `like`, gallery WHERE `like`.galleryid=gallery.id AND gallery.img=:img AND `like`.type='L'");
+      $condb = new PDO($dbdsn, $user, $dbpass);
+      $condb->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      $query= $condb->prepare("SELECT type FROM `like`, gallery WHERE `like`.galleryid=gallery.id AND gallery.img=:img AND `like`.type='L'");
       $query->execute(array(':img' => $img));
 
       $count = 0;
@@ -81,9 +81,9 @@ function getlikenb2($img) {
 function getdislnb($img) {
   include './config/database.php';
   try {
-      $dbh = new PDO($dbdsn, $user, $dbpass);
-      $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-      $query= $dbh->prepare("SELECT type FROM `like`, gallery WHERE `like`.galleryid=gallery.id AND gallery.img=:img AND `like`.type='D'");
+      $condb = new PDO($dbdsn, $user, $dbpass);
+      $condb->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      $query= $condb->prepare("SELECT type FROM `like`, gallery WHERE `like`.galleryid=gallery.id AND gallery.img=:img AND `like`.type='D'");
       $query->execute(array(':img' => $img));
 
       $count = 0;
@@ -97,12 +97,12 @@ function getdislnb($img) {
     }
 }
 
-function getdislnb2($img) {
+function dislcount($img) {
   include '../config/database.php';
   try {
-      $dbh = new PDO($dbdsn, $user, $dbpass);
-      $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-      $query= $dbh->prepare("SELECT type FROM `like`, gallery WHERE `like`.galleryid=gallery.id AND gallery.img=:img AND `like`.type='D'");
+      $condb = new PDO($dbdsn, $user, $dbpass);
+      $condb->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      $query= $condb->prepare("SELECT type FROM `like`, gallery WHERE `like`.galleryid=gallery.id AND gallery.img=:img AND `like`.type='D'");
       $query->execute(array(':img' => $img));
 
       $count = 0;

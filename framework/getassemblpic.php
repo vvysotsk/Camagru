@@ -1,35 +1,31 @@
 <?php
 session_start();
-
 include_once("../functions/assembly.php");
 include_once("../functions/like.php");
 
 $id = $_POST['id'];
-$nb = $_POST['nb'];
+$counter = $_POST['nb'];
 
-if ($id == null || $id == "" || $nb == null || $nb == "") {
-  echo "KO";
-  return;
+if ($id == null || $id == "" || $counter == null || $counter == "") {
+    echo "KO";
+    return;
 }
 
 $assemblpic = [];
-
-$assemblpic = get_assemblpic2($id, $nb);
+$assemblpic = insasmblpic($id, $counter);
 for ($i = 0; $i < count($assemblpic); $i++) {
-  $assemblpic[$i]['dislikes'] = getdislnb2($assemblpic[$i]['img']);
-  $assemblpic[$i]['likes'] = getlikenb2($assemblpic[$i]['img']);
-  $comments = get_comments2($assemblpic[$i]['img']);
-  if ($comments[0] != null) {
-    $assemblpic[$i]['comments'] = $comments;
-  } else {
-    $assemblpic[$i]['comments'] = null;
-  }
+    $assemblpic[$i]['dislikes'] = dislcount($assemblpic[$i]['img']);
+    $assemblpic[$i]['likes'] = likecount($assemblpic[$i]['img']);
+    $comments = inscomment($assemblpic[$i]['img']);
+    if ($comments[0] != null) {
+        $assemblpic[$i]['comments'] = $comments;
+    } else {
+        $assemblpic[$i]['comments'] = null;
+    }
 }
-
 if (count($assemblpic) <= 0) {
-  echo "KO";
-  return;
+    echo "KO";
+    return;
 }
 print_r(json_encode($assemblpic));
-
 ?>

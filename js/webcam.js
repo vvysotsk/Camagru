@@ -54,9 +54,9 @@ function handleVideo(stream) {
       pickFile.style.display = "none";
 
       image.addEventListener("load", function() {
-          if (file === "cadre.png") {
+          if (file === "frame.png") {
             canvas.getContext("2d").drawImage(image, 0, 0, 1024, 768, 0, 0, 640, 480);
-          } else if (file === "cigarette.png") {
+          } else if (file === "smoke.png") {
             canvas.getContext("2d").drawImage(image, 0, 0, 1024, 768, 100, 200, 240, 180);
           } else {
             canvas.getContext("2d").drawImage(image, 0, 0, 1024, 768, 180, 0, 240, 180);
@@ -109,11 +109,11 @@ function videoError(e) {
 function onCheckBoxChecked(checkbox) {
   if (cameraAvailable) {
       button.style.display = "block";
-      if (checkbox.id === "cadre.png") {
+      if (checkbox.id === "frame.png") {
         cadre.style.display = "block";
         cigarette.style.display = "none";
         hat.style.display = "none";
-      } else if (checkbox.id === "cigarette.png") {
+      } else if (checkbox.id === "smoke.png") {
         cadre.style.display = "none";
         cigarette.style.display = "block";
         hat.style.display = "none";
@@ -137,9 +137,9 @@ function onCheckBoxChecked(checkbox) {
         var split = img.src.split("/");
         var file = split[split.length - 1];
 
-        if (file === "cadre.png") {
+        if (file === "frame.png") {
           canvas.getContext("2d").drawImage(img, 0, 0, 1024, 768, 0, 0, 640, 480);
-        } else if (file === "cigarette.png") {
+        } else if (file === "smoke.png") {
           canvas.getContext("2d").drawImage(img, 0, 0, 1024, 768, 100, 200, 240, 180);
         } else {
           canvas.getContext("2d").drawImage(img, 0, 0, 1024, 768, 180, 0, 240, 180);

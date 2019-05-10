@@ -1,13 +1,13 @@
 <?php
 
-function reset_password($userMail) {
+function passres($userMail) {
   include_once '../config/database.php';
   include_once '../functions/mail.php';
 
   try {
-      $dbh = new PDO($dbdsn, $user, $dbpass);
-      $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-      $query= $dbh->prepare("SELECT id, username FROM users WHERE mail=:mail AND verified='Y'");
+      $condb = new PDO($dbdsn, $user, $dbpass);
+      $condb->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      $query= $condb->prepare("SELECT id, username FROM users WHERE mail=:mail AND verified='Y'");
       $userMail = strtolower($userMail);
       $query->execute(array(':mail' => $userMail));
 
@@ -19,13 +19,13 @@ function reset_password($userMail) {
       $query->closeCursor();
 
       $pass = uniqid('');
-      $passEncrypt = hash("whirlpool", $pass);
+      $p_encr = hash("whirlpool", $pass);
 
-      $query= $dbh->prepare("UPDATE users SET password=:password WHERE mail=:mail");
-      $query->execute(array(':password' => $passEncrypt, ':mail' => $userMail));
+      $query= $condb->prepare("UPDATE users SET password=:password WHERE mail=:mail");
+      $query->execute(array(':password' => $p_encr, ':mail' => $userMail));
       $query->closeCursor();
 
-      send_restore_mail($userMail, $val['username'], $pass);
+      sendrestoremail($userMail, $val['username'], $pass);
       return (0);
     } catch (PDOException $e) {
       return ($e->getMessage());

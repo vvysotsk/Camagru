@@ -1,15 +1,14 @@
 <?php
 
-function signup($mail, $username, $password, $host) {
+function signup($mail, $username, $userpass, $host) {
   include_once '../config/database.php';
   include_once '../functions/mail.php';
 
   $mail = strtolower($mail);
-
   try {
-          $dbh = new PDO($dbdsn, $user, $dbpass);
-          $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-          $query= $dbh->prepare("SELECT id FROM users WHERE username=:username OR mail=:mail");
+          $condb = new PDO($dbdsn, $user, $dbpass);
+          $condb->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+          $query= $condb->prepare("SELECT id FROM users WHERE username=:username OR mail=:mail");
           $query->execute(array(':username' => $username, ':mail' => $mail));
 
           if ($val = $query->fetch()) {
@@ -19,13 +18,11 @@ function signup($mail, $username, $password, $host) {
           }
           $query->closeCursor();
 
-          $password = hash("whirlpool", $password);
-
-          $query= $dbh->prepare("INSERT INTO users (username, mail, password, token) VALUES (:username, :mail, :password, :token)");
-          $token = uniqid(rand(), true);
-          $query->execute(array(':username' => $username, ':mail' => $mail, ':password' => $password, ':token' => $token));
-          send_verification_email($mail, $username, $token, $host);
-
+          $userpass = hash("whirlpool", $userpass);
+          $query= $condb->prepare("INSERT INTO users (username, mail, password, token) VALUES (:username, :mail, :password, :token)");
+          $chusid = uniqid(rand(), true);
+          $query->execute(array(':username' => $username, ':mail' => $mail, ':password' => $userpass, ':token' => $chusid));
+          sendverificationemail($mail, $username, $chusid, $host);
           $_SESSION['signup_success'] = true;
           return (0);
       } catch (PDOException $e) {
