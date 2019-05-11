@@ -11,10 +11,10 @@ for (var i = 0; i < likes.length; i++) {
                 "img=" + src + "&type=L",
                 function (responseText) {
                     if (responseText == "ADD LIKE") {
-                        current_user_addlike(src);
+                        addlikeuser(src);
                     } else if (responseText == "LIKE CHANGE") {
                         clientDislikes[src] = true;
-                        current_user_addlike(src);
+                        addlikeuser(src);
                     }
                 },
                 function () {
@@ -30,10 +30,10 @@ for (var i = 0; i < dislikes.length; i++) {
                 "img=" + src + "&type=D",
                 function (responseText) {
                     if (responseText == "ADD LIKE") {
-                        current_user_add_dislike(src);
+                        adddisluser(src);
                     } else if (responseText == "LIKE CHANGE") {
                         clientLikes[src] = true;
-                        current_user_add_dislike(src);
+                        adddisluser(src);
                     }
                 },
                 function () {
@@ -42,34 +42,33 @@ for (var i = 0; i < dislikes.length; i++) {
     }
 }
 
-function current_user_add_dislike(src) {
+function adddisluser(src) {
   clientDislikes[src] = true;
   var span = document.querySelectorAll("[data-src='" + src + "']")[1];
-  var prev = span.innerHTML;
-  span.innerHTML = eval(prev * 1 + 1);
-
+  var buff = span.innerHTML;
+  span.innerHTML = eval(buff * 1 + 1);
   if (clientLikes == [] || clientLikes[src] == undefined || clientDislikes[src] == null) {
     return;
   }
 
   var span = document.querySelectorAll("[data-src='" + src + "']")[0];
-  var prev = span.innerHTML;
-  span.innerHTML = eval(prev * 1 - 1);
+  var buff = span.innerHTML;
+  span.innerHTML = eval(buff * 1 - 1);
   clientLikes[src] = null;
 }
 
-function current_user_addlike(src) {
+function addlikeuser(src) {
   clientLikes[src] = true;
   var span = document.querySelectorAll("[data-src='" + src + "']")[0];
-  var prev = span.innerHTML;
-  span.innerHTML = eval(prev * 1 + 1);
+  var buff = span.innerHTML;
+  span.innerHTML = eval(buff * 1 + 1);
 
   if (clientDislikes == [] || clientDislikes[src] == undefined || clientDislikes[src] == null) {
     return;
   }
 
   var span = document.querySelectorAll("[data-src='" + src + "']")[1];
-  var prev = span.innerHTML;
-  span.innerHTML = eval(prev * 1 - 1);
+  var buff = span.innerHTML;
+  span.innerHTML = eval(buff * 1 - 1);
   clientDislikes[src] = null;
 }

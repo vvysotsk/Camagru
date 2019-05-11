@@ -1,4 +1,4 @@
-var fileInput = document.getElementById("take-picture");
+var fileInput = document.getElementById("importpic");
 var canvas = document.getElementById("canvas");
 var miniatures = document.getElementById("miniatures");
 var pickFile = document.getElementById("pickFile");
@@ -29,7 +29,7 @@ fileInput.onchange = function (event) {
       }
 
       pickFile.onclick = function () {
-        sendMontage(data64Img, file);
+        makeassembl(data64Img, file);
       }
   }, false);
 
@@ -37,17 +37,17 @@ fileInput.onchange = function (event) {
   pickFile.style.display = "block";
 }
 
-function sendMontage(imgData64, filterImg) {
+function makeassembl(imgData64, imglimit) {
     make_ajax_request("./framework/assembly.php",
-            "img=" + "../img/" + filterImg + "&f=" + imgData64,
+            "img=" + "../img/" + imglimit + "&f=" + imgData64,
             function (responseText) {
-                var newImg = document.createElement("IMG");
-                newImg.className = "icon removable";
-                newImg.src = "assembly/" + responseText;
-                newImg.onclick = function (event) {
-                    var pathToImg = (event.srcElement && event.srcElement.src) || (event.target && event.target.src);
-                    var srcTab = pathToImg.split('/');
-                    var src = srcTab[srcTab.length - 1];
+                var imgnew = document.createElement("IMG");
+                imgnew.className = "icon removable";
+                imgnew.src = "assembly/" + responseText;
+                imgnew.onclick = function (event) {
+                    var imgdir = (event.srcElement && event.srcElement.src) || (event.target && event.target.src);
+                    var arfsrc = imgdir.split('/');
+                    var src = arfsrc[arfsrc.length - 1];
                     make_ajax_request("./framework/removeassembly.php",
                             "src=" + src,
                             function () {
@@ -57,7 +57,7 @@ function sendMontage(imgData64, filterImg) {
                                 alert("Error");
                             });
                 }
-                miniatures.appendChild(newImg);
+                miniatures.appendChild(imgnew);
             },
             function () {
                 alert("Error, unable to import file");

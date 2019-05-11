@@ -17,25 +17,25 @@ $assemblpic = getallassembl();
         <div class="main">
     		  <div class="select">
       			<img class="thumbnail" src="img/frame.png"></img>
-      			<input id="frame.png" type="radio" name="img" value="./img/frame.png" onclick="onCheckBoxChecked(this)">
+      			<input id="frame.png" type="radio" name="img" value="./img/frame.png" onclick="camcheck(this)">
       			<img class="thumbnail" src="img/smoke.png"></img>
-      			<input id="smoke.png" type="radio" name="img" value="./img/smoke.png" onclick="onCheckBoxChecked(this)">
+      			<input id="smoke.png" type="radio" name="img" value="./img/smoke.png" onclick="camcheck(this)">
       			<img class="thumbnail" src="img/kitty.png"></img>
-      			<input id="kitty.png" type="radio" name="img" value="./img/kitty.png" onclick="onCheckBoxChecked(this)">
+      			<input id="kitty.png" type="radio" name="img" value="./img/kitty.png" onclick="camcheck(this)">
     		  </div>
           <video width="100%" autoplay="true" id="webcam"></video>
-          <div id="camera-not-available">CAMERA NOT AVAILABLE</div>
-          <img id="hat" style="display:none;" src="img/kitty.png"></img>
-          <img id="cigarette" style="display:none;" src="img/smoke.png"></img>
-          <img id="cadre" style="display:none;" src="img/frame.png"></img>
-    		  <div class="capture" id="pickImage">
+          <div id="webcam_is_off">CAMERA NOT AVAILABLE</div>
+          <img id="kitty" style="display:none;" src="img/kitty.png"></img>
+          <img id="smoke" style="display:none;" src="img/smoke.png"></img>
+          <img id="cam" style="display:none;" src="img/frame.png"></img>
+    		  <div class="capture" id="selectimg">
             <img class="camera" src="img/camera.png"></img>
           </div>
           <canvas id="canvas" style="display:none;" width="640" height="480"></canvas>
           <div class="captureFile" id="pickFile">
             <img class="camera" src="img/camera.png"></img>
           </div>
-          <input type="file" id="take-picture" style="display:none;" accept="image/*">
+          <input type="file" id="importpic" style="display:none;" accept="image/*">
         </div>
         <div class="side">
 			<div class="title">Assembly</div>
@@ -64,8 +64,8 @@ $assemblpic = getallassembl();
   </body>
   <?php if(isset($_SESSION['id'])) { ?>
   <script type="text/javascript" src="js/util.js"></script>
-  <script type="text/javascript" src="js/webcam.js"></script>
-  <script type="text/javascript" src="js/drop.js"></script>
+  <script type="text/javascript" src="js/camera.js"></script>
+  <script type="text/javascript" src="js/remove.js"></script>
   <script type="text/javascript" src="js/import.js"></script>
   <?php } ?>
 </HTML>

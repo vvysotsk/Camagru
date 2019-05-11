@@ -84,21 +84,21 @@ body {
   -webkit-transition-duration: 0.4s; /* Safari */
   transition-duration: 0.4s;
 }
-#hat {
+#kitty {
   position: absolute;
   width: 240px;
   height: 180px;
   top: 115px;
   left: 180px;
 }
-#cigarette {
+#smoke {
   position: absolute;
   width: 240px;
   height: 180px;
   top: 315px;
   left: 100px;
 }
-#cadre {
+#cam {
   position: absolute;
   width: 640px;
   height: 480px;
@@ -127,7 +127,7 @@ body {
 #webcam {
   display: none;
 }
-#camera-not-available {
+#webcam_is_off {
   width: 100%;
   text-align: center;
   height: 480px;
@@ -140,13 +140,13 @@ body {
 @media screen and (max-width: 900px) {
   .main { width: 400px; }
   .capture { top: 365px; } /* 180 */
-  #cadre { width: 400px; height: 300px; }
+  #cam { width: 400px; height: 300px; }
   .body { width: 640px; }
-  #cigarette { top: 233px; width: 175px; height: 135px; left: 44px;}
-  #hat {top: 115px; width: 145px; height: 115px; left: 115px;}
+  #smoke { top: 233px; width: 175px; height: 135px; left: 44px;}
+  #kitty {top: 115px; width: 145px; height: 115px; left: 115px;}
   #canvas { width: 400px;}
   .captureFile {top: 668px;}
-  #camera-not-available {height: 300px; line-height: 160px}
+  #webcam_is_off {height: 300px; line-height: 160px}
 }
 @media screen and (max-width: 660px) {
   .body {display: inline; width: 450px;}

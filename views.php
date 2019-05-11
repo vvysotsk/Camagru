@@ -75,7 +75,7 @@ if ($assemblpic != "" && array_key_exists("more", $assemblpic)) {
     <?php include('footer.php') ?>
   </body>
   <script type="text/javascript" src="js/util.js"></script>
-  <script type="text/javascript" src="js/modal.js"></script>
+  <script type="text/javascript" src="js/comment.js"></script>
   <script type="text/javascript" src="js/like.js"></script>
-  <script type="text/javascript" src="js/loadMore.js"></script>
+  <script type="text/javascript" src="js/picload.js"></script>
 </HTML>
