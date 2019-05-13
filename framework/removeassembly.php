@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 include_once("../functions/assembly.php");
 
@@ -8,9 +9,9 @@ $src = $_POST['src'];
 $val = remove_assembl($uid, $src);
 
 if ($val == 0) {
-  echo "OK";
-  unlink("../assembly/" . $src);
+    echo "OK";
+    unlink("../assembly/" . $src);
 } else {
-  echo "KO";
+    echo "KO";
 }
 ?>

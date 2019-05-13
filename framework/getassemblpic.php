@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 include_once("../functions/assembly.php");
 include_once("../functions/like.php");

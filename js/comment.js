@@ -1,33 +1,33 @@
-var modal = document.getElementById('modal');
+var editphoto = document.getElementById('editphoto');
 var assemblpic = document.getElementsByClassName("icon");
-var span = document.getElementsByClassName("close")[0];
-var imgmodal = document.getElementById('img-modal');
+var span = document.getElementsByClassName("exit")[0];
+var imgeditphoto = document.getElementById('img-editphoto');
 var send = document.getElementById('send-comment');
 var comment = document.getElementById('comment');
 
 var imageSelected = null;
 
-for (var i=0; i < assemblpic.length; i++) {
-  assemblpic[i].onclick = displframe;
+for (var i = 0; i < assemblpic.length; i++) {
+    assemblpic[i].onclick = displframe;
 }
 
 function displframe(event) {
-  modal.style.display = "block";
-  imgmodal.src = (event.srcElement && event.srcElement.src) || (event.target && event.target.src);
-  imageSelected = (event.srcElement && event.srcElement.src) || (event.target && event.target.src);
+    editphoto.style.display = "block";
+    imgeditphoto.src = (event.srcElement && event.srcElement.src) || (event.target && event.target.src);
+    imageSelected = (event.srcElement && event.srcElement.src) || (event.target && event.target.src);
 }
 
-assemblpic.onclick = function() {
-    modal.style.display = "block";
+assemblpic.onclick = function () {
+    editphoto.style.display = "block";
 }
 
-span.onclick = function() {
-    modal.style.display = "none";
+span.onclick = function () {
+    editphoto.style.display = "none";
 }
 
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
+window.onclick = function (event) {
+    if (event.target == editphoto) {
+        editphoto.style.display = "none";
     }
 }
 
@@ -48,20 +48,20 @@ send.onclick = function (event) {
                 span.setAttribute("class", "comment");
                 div.appendChild(span);
                 comment.value = "";
-                modal.style.display = "none";
+                editphoto.style.display = "none";
             },
             function () {
                 alert("Error, unable to add comment");
                 comment.value = "";
-                modal.style.display = "none";
+                editphoto.style.display = "none";
             });
 }
 
 function escapeHtml(unsafe) {
     return unsafe
-         .replace(/&/g, "&amp;")
-         .replace(/</g, "&lt;")
-         .replace(/>/g, "&gt;")
-         .replace(/"/g, "&quot;")
-         .replace(/'/g, "&#039;");
- }
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+}

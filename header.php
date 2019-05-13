@@ -1,19 +1,20 @@
 <div id="header">
-  <?php if(isset($_SESSION['id'])) { ?>
-      <div class="button" onclick="location.href='framework/disconnect.php'">
-        <span>Disconnect</snap>
-      </div>
-  <?php } else { ?>
-    <div class="button" onclick="location.href='index.php'">
-        <span>Login</snap>
-    </div>
-  <?php }
-  if(isset($_SESSION['id'])) { ?>
-  <div class="button" onclick="location.href='gallery.php'">
-    <span>Gallery</snap>
-  </div>
-  <div class="button" onclick="location.href='views.php'">
-    <span>Views</snap>
-  </div>
-  <?php } ?>
+    <?php if (isset($_SESSION['id'])) { ?>
+        <div class="button" onclick="location.href = 'framework/disconnect.php'">
+            <div class="empty">Disconnect</div>
+        </div>
+    <?php } else { ?>
+        <div class="button" onclick="location.href = 'index.php'">
+            <div class="empty">Login</div>
+        </div>
+    <?php }
+    if (isset($_SESSION['id'])) {
+        ?>
+        <div class="button" onclick="location.href = 'gallery.php'">
+            <div class="empty">Gallery</div>
+        </div>
+        <div class="button" onclick="location.href = 'views.php'">
+            <div class="empty">Views</div>
+        </div>
+<?php } ?>
 </div>

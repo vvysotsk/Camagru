@@ -1,8 +1,8 @@
 var views = document.getElementById('views');
 var buttonLoad = document.getElementById('load-more');
 
-var modal = document.getElementById('modal');
-var imgmodal = document.getElementById('img-modal');
+var editphoto = document.getElementById('editphoto');
+var imgeditphoto = document.getElementById('img-editphoto');
 
 var last = null;
 
@@ -48,47 +48,47 @@ function loadMore(lastapicId, imagePerPages) {
 
 function escapeHtml(unsafe) {
     return unsafe
-         .replace(/&/g, "&amp;")
-         .replace(/</g, "&lt;")
-         .replace(/>/g, "&gt;")
-         .replace(/"/g, "&quot;")
-         .replace(/'/g, "&#039;");
- }
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+}
 
- function displframe2(src) {
-   modal.style.display = "block";
-   imgmodal.src = 'assembly/' + src;
-   imageSelected = 'assembly/' + src;
- }
+function displframe2(src) {
+    editphoto.style.display = "block";
+    imgeditphoto.src = 'assembly/' + src;
+    imageSelected = 'assembly/' + src;
+}
 
 function onLike(srcElement) {
-  var src = srcElement.getAttribute('data-image');
-  var xhr = new XMLHttpRequest();
-  xhr.onreadystatechange = function() {
-    if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0) && xhr.responseText != null && xhr.responseText == "ADD LIKE") {
-      addlikeuser(src);
-    } else if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0) && xhr.responseText != null && xhr.responseText == "LIKE CHANGE") {
-      clientDislikes[src] = true;
-      addlikeuser(src);
-    }
-  };
-  xhr.open("POST", "./framework/like.php?XDEBUG_SESSION_START=netbeans-xdebug", true);
-  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-  xhr.send("img=" + src + "&type=L");
+    var src = srcElement.getAttribute('data-image');
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0) && xhr.responseText != null && xhr.responseText == "ADD LIKE") {
+            addlikeuser(src);
+        } else if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0) && xhr.responseText != null && xhr.responseText == "LIKE CHANGE") {
+            clientDislikes[src] = true;
+            addlikeuser(src);
+        }
+    };
+    xhr.open("POST", "./framework/like.php?XDEBUG_SESSION_START=netbeans-xdebug", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send("img=" + src + "&type=L");
 }
 
 function onDislike(srcElement) {
-  var src = srcElement.getAttribute('data-image');
-  var xhr = new XMLHttpRequest();
-  xhr.onreadystatechange = function() {
-    if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0) && xhr.responseText != null && xhr.responseText == "ADD LIKE") {
-      adddisluser(src);
-    } else if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0) && xhr.responseText != null && xhr.responseText == "LIKE CHANGE") {
-      clientLikes[src] = true;
-      adddisluser(src);
-    }
-  };
-  xhr.open("POST", "./framework/like.php?XDEBUG_SESSION_START=netbeans-xdebug", true);
-  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-  xhr.send("img=" + src + "&type=D");
+    var src = srcElement.getAttribute('data-image');
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0) && xhr.responseText != null && xhr.responseText == "ADD LIKE") {
+            adddisluser(src);
+        } else if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0) && xhr.responseText != null && xhr.responseText == "LIKE CHANGE") {
+            clientLikes[src] = true;
+            adddisluser(src);
+        }
+    };
+    xhr.open("POST", "./framework/like.php?XDEBUG_SESSION_START=netbeans-xdebug", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send("img=" + src + "&type=D");
 }

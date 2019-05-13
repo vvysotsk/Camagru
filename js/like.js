@@ -43,32 +43,32 @@ for (var i = 0; i < dislikes.length; i++) {
 }
 
 function adddisluser(src) {
-  clientDislikes[src] = true;
-  var span = document.querySelectorAll("[data-src='" + src + "']")[1];
-  var buff = span.innerHTML;
-  span.innerHTML = eval(buff * 1 + 1);
-  if (clientLikes == [] || clientLikes[src] == undefined || clientDislikes[src] == null) {
-    return;
-  }
+    clientDislikes[src] = true;
+    var span = document.querySelectorAll("[data-src='" + src + "']")[1];
+    var buff = span.innerHTML;
+    span.innerHTML = eval(buff * 1 + 1);
+    if (clientLikes == [] || clientLikes[src] == undefined || clientDislikes[src] == null) {
+        return;
+    }
 
-  var span = document.querySelectorAll("[data-src='" + src + "']")[0];
-  var buff = span.innerHTML;
-  span.innerHTML = eval(buff * 1 - 1);
-  clientLikes[src] = null;
+    var span = document.querySelectorAll("[data-src='" + src + "']")[0];
+    var buff = span.innerHTML;
+    span.innerHTML = eval(buff * 1 - 1);
+    clientLikes[src] = null;
 }
 
 function addlikeuser(src) {
-  clientLikes[src] = true;
-  var span = document.querySelectorAll("[data-src='" + src + "']")[0];
-  var buff = span.innerHTML;
-  span.innerHTML = eval(buff * 1 + 1);
+    clientLikes[src] = true;
+    var span = document.querySelectorAll("[data-src='" + src + "']")[0];
+    var buff = span.innerHTML;
+    span.innerHTML = eval(buff * 1 + 1);
 
-  if (clientDislikes == [] || clientDislikes[src] == undefined || clientDislikes[src] == null) {
-    return;
-  }
+    if (clientDislikes == [] || clientDislikes[src] == undefined || clientDislikes[src] == null) {
+        return;
+    }
 
-  var span = document.querySelectorAll("[data-src='" + src + "']")[1];
-  var buff = span.innerHTML;
-  span.innerHTML = eval(buff * 1 - 1);
-  clientDislikes[src] = null;
+    var span = document.querySelectorAll("[data-src='" + src + "']")[1];
+    var buff = span.innerHTML;
+    span.innerHTML = eval(buff * 1 - 1);
+    clientDislikes[src] = null;
 }

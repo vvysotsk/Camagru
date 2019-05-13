@@ -1,34 +1,34 @@
 <?php
 
-function passres($userMail) {
-  include_once '../config/database.php';
-  include_once '../functions/mail.php';
+function passres($user_email) {
+    include_once '../config/database.php';
+    include_once '../functions/mail.php';
 
-  try {
-      $condb = new PDO($dbdsn, $user, $dbpass);
-      $condb->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-      $query= $condb->prepare("SELECT id, username FROM users WHERE mail=:mail AND verified='Y'");
-      $userMail = strtolower($userMail);
-      $query->execute(array(':mail' => $userMail));
+    try {
+        $condb = new PDO($dbdsn, $user, $dbpass, $option);
+        $stmt = $condb->prepare("SELECT id, username FROM users WHERE mail=:mail AND statusvar='Y'");
+        $user_email = strtolower($user_email);
+        $stmt->execute(array(':mail' => $user_email));
 
-      $val = $query->fetch();
-      if ($val == null) {
-          $query->closeCursor();
-          return (-1);
-      }
-      $query->closeCursor();
+        $val = $stmt->fetch();
+        if ($val == null) {
+            $stmt->closeCursor();
+            return (-1);
+        }
+        $stmt->closeCursor();
 
-      $pass = uniqid('');
-      $p_encr = hash("whirlpool", $pass);
+        $pass = uniqid('');
+        $p_encr = hash("whirlpool", $pass);
 
-      $query= $condb->prepare("UPDATE users SET password=:password WHERE mail=:mail");
-      $query->execute(array(':password' => $p_encr, ':mail' => $userMail));
-      $query->closeCursor();
+        $stmt = $condb->prepare("UPDATE users SET password=:password WHERE mail=:mail");
+        $stmt->execute(array(':password' => $p_encr, ':mail' => $user_email));
+        $stmt->closeCursor();
 
-      sendrestoremail($userMail, $val['username'], $pass);
-      return (0);
+        sendrestoremail($user_email, $val['username'], $pass);
+        return (0);
     } catch (PDOException $e) {
-      return ($e->getMessage());
+        return ($e->getMessage());
     }
 }
+
 ?>

@@ -1,71 +1,50 @@
 <?php
 
-function sendverificationemail($toAddr, $toUsername, $chusid, $ip) {
-  $subject = "[CAMAGRU] - Email verification";
+function sendverificationemail($useremail, $usemn_mail, $chusid, $ip) {
+    $subject = "CAMAGRU - Email verification";
 
-  $headers  = 'MIME-Version: 1.0' . "\r\n";
-  $headers .= 'Content-type: text/html; charset=UTF-8' . "\r\n";
-  $headers .= 'From: <vvysotsk@student.42.fr>' . "\r\n";
-
-  $message = '
+    $message = '
   <html>
-    <head>
-      <title>' . $subject . '</title>
-    </head>
-    <body>
-      Hello ' . htmlspecialchars($toUsername) . ' </br>
+    <body> 
+      Hello ' . htmlspecialchars($usemn_mail) . '</br>
       To finalyze your subscribtion please click the link below </br>
-      <a href="http://' . $ip . '/verify.php?token=' . $chusid . '">Verify my email</a>
+      <a href="http://' . $ip . '/verify.php?uniqident=' . $chusid . '">Verify my email</a>
     </body>
   </html>
   ';
 
-  mail($toAddr, $subject, $message, $headers);
+    mail($useremail, $subject, $message);
 }
 
-function sendrestoremail($toAddr, $toUsername, $userpass) {
-  $subject = "[CAMAGRU] - Reset your password";
+function sendrestoremail($useremail, $usemn_mail, $userpass) {
+    $subject = "CAMAGRU - Reset your password";
 
-  $headers  = 'MIME-Version: 1.0' . "\r\n";
-  $headers .= 'Content-type: text/html; charset=UTF-8' . "\r\n";
-  $headers .= 'From: <yfuks@student.42.fr>' . "\r\n";
-
-  $message = '
+    $message = '
   <html>
-    <head>
-      <title>' . $subject . '</title>
-    </head>
     <body>
-      Hello ' . htmlspecialchars($toUsername) . ' </br>
+      Hello ' . htmlspecialchars($usemn_mail) . ' </br>
       There is your new password : ' . $userpass . ' </br>
     </body>
   </html>
   ';
 
-  mail($toAddr, $subject, $message, $headers);
+    mail($useremail, $subject, $message);
 }
 
-function usermailcominfo($toAddr, $toUsername, $comtxt, $fromUsername, $img, $ip) {
-  $subject = "[CAMAGRU] - New comment";
+function usermailcominfo($useremail, $usemn_mail, $comtxt, $usfcom, $img, $ip) {
+    $subject = "CAMAGRU - New comment";
 
-  $headers  = 'MIME-Version: 1.0' . "\r\n";
-  $headers .= 'Content-type: text/html; charset=UTF-8' . "\r\n";
-  $headers .= 'From: <yfuks@student.42.fr>' . "\r\n";
-
-  $message = '
+    $message = '
   <html>
-    <head>
-      <title>' . $subject . '</title>
-    </head>
     <body>
-      Hello ' . htmlspecialchars($toUsername) . ' </br>
-      A user just commented one of your montage</br>
-      <img src="http://' . $ip . '/assembly/' . $img . '" style="width: 388px;height: 291px;display: block;margin: 20px;"></img>
-      <span>' . htmlspecialchars($fromUsername) . ': ' . htmlspecialchars($comtxt) . '</span>
+      Hello ' . htmlspecialchars($usemn_mail) . '</br>
+      A user just commented one of your picture</br>
+      <img src="http://' . $ip . '/assembly/' . $img . '"style="width: 388px;height: 291px;display: block;margin: 20px;"></img>
+      <span>' . htmlspecialchars($usfcom) . ': ' . htmlspecialchars($comtxt) . '</span>
     </body>
   </html>
   ';
-
-  mail($toAddr, $subject, $message, $headers);
+    mail($useremail, $subject, $message);
 }
+
 ?>

@@ -1,0 +1,16 @@
+@media screen and (max-width: 900px) {
+    .main { width: 400px; }
+    .selected { top: 365px; }
+    #cam { width: 400px; height: 300px; }
+    .body { width: 640px; }
+    #smoke { top: 233px; width: 175px; height: 135px; left: 44px;}
+    #kitty {top: 115px; width: 145px; height: 115px; left: 115px;}
+    #canvas { width: 400px;}
+    .chosefile {top: 668px;}
+    #webcam_is_off {height: 300px; line-height: 160px}
+}
+@media screen and (max-width: 660px) {
+    .body {display: inline; width: 450px;}
+    .side {width: 100%; max-width: 400px; margin-right: auto; margin-left: auto;}
+    .main {margin-left: auto; margin-right: auto;}
+}
