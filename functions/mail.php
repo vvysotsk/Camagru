@@ -4,9 +4,7 @@ function sendverificationemail($useremail, $usemn_mail, $chusid, $ip) {
     $subject = "CAMAGRU - Email verification";
 
     $message = '
-  <html>
-    <body> 
-      Hello ' . htmlspecialchars($usemn_mail) . '</br>
+      Hello ' . htmlspecialchars($usemn_mail) . '
       To finalyze your subscribtion please click the link below </br>
       <a href="http://' . $ip . '/verify.php?uniqident=' . $chusid . '">Verify my email</a>
     </body>

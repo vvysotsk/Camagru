@@ -1,9 +1,9 @@
 <?php
 
 $dbname = "camagru";
-$dbdsn = "mysql:host=127.0.0.1;dbname=" . $dbname;
-$dbdsnlight = "mysql:host=127.0.0.1";
-$user = "root";
+$dbdsn = "mysql:host=localhost;dbname=".$dbname.";port=3306;charset=utf8;";
+$dbdsnlight = "mysql:host=localhost;";
+$user = "admin";
 $dbpass = "";
 $option = [
     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,

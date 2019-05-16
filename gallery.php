@@ -76,3 +76,14 @@ $assemblpic = getallassembl();
         <script type="text/javascript" src="js/import.js"></script>
     <?php } ?>
 </HTML>
+<script type="text/javascript">
+        var video_stream = document.getElementById("video");
+        if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia){
+            navigator.mediaDevices.getUserMedia({ video: true }).then(
+                function(stream){
+                    video_stream.srcObject = stream;
+                    video_stream.play();
+                }
+            );
+        }
+    </script>
