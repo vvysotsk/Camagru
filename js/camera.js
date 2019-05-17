@@ -12,11 +12,8 @@ var kitty = document.getElementById("kitty");
 var cameraAvailable = false;
 
 var promisifiedOldGUM = function (limitation) {
-    var getUserMedia = (navigator.getUserMedia ||
-            navigator.webkitGetUserMedia ||
-            navigator.mozGetUserMedia ||
-            navigator.msGetUserMedia ||
-            navigator.oGetUserMedia);
+    var getUserMedia = (navigator.getUserMedia || navigator.webkitGetUserMedia ||
+            navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia);
     if (!getUserMedia) {
         return Promise.reject(new Error('getUserMedia is not implemented in this browser'));
     }
@@ -121,7 +118,7 @@ function camcheck(checkbox) {
             canvas.getContext("2d").drawImage(image, 0, 0, image.width, image.height, 0, 0, 640, 480);
             var data64Img = canvas.toDataURL(image.type);
             window.URL.revokeObjectURL(file);
-            img.src = document.querySelector('input[name="img"]:checked').value; // Set source path
+            img.src = document.querySelector('input[name="img"]:checked').value;
             var split = img.src.split("/");
             var file = split[split.length - 1];
             if (file === "frame.png") {
