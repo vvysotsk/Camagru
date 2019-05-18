@@ -25,7 +25,7 @@ $assemblpic = getallassembl();
                         <input type="radio" id="kitty.png" name="img" onclick="camcheck(this)" value="./img/kitty.png">
                     </div>
                     <video id="webcam" autoplay="true" width="100%"></video>
-                    <div id="webcam_is_off">CAMERA NOT AVAILABLE</div>-
+                    <div id="webcam_is_off">CAMERA NOT AVAILABLE</div>
                     <img src="img/kitty.png" id="kitty" class="img_display">
                     <div class="empty"></div>
                     <img src="img/smoke.png" id="smoke" class="img_display">

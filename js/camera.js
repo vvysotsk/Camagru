@@ -37,7 +37,7 @@ navigator.mediaDevices.getUserMedia(limitation)
         .catch(videoError);
 
 function videoprocess(stream) {
-    video.src = window.URL.createObjectURL(stream);
+    video.src = stream;
     cameraAvailable = true;
     video.style.display = "block";
     offCam.style.display = "none";
