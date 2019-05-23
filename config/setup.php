@@ -16,7 +16,7 @@ try {//DATABASE
 try {//TABLE USERS
     $condb = new PDO($dbdsn, $user, $dbpass, $option);
 
-    $sql = "CREATE TABLE `users` (
+    $sql = "CREATE TABLE IF NOT EXISTS `users` (
           `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
           `username` VARCHAR(50) NOT NULL,
           `mail` VARCHAR(100) NOT NULL,
@@ -33,7 +33,7 @@ try {//TABLE USERS
 try {//TABLE GALLERY
     $condb = new PDO($dbdsn, $user, $dbpass, $option);
 
-    $sql = "CREATE TABLE `gallery` (
+    $sql = "CREATE TABLE IF NOT EXISTS `gallery` (
           `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
           `usnubm` INT(11) NOT NULL,
           `img` VARCHAR(100) NOT NULL,
@@ -48,7 +48,7 @@ try {//TABLE GALLERY
 try {//TABLE LIKE
     $condb = new PDO($dbdsn, $user, $dbpass, $option);
 
-    $sql = "CREATE TABLE `like` (
+    $sql = "CREATE TABLE IF NOT EXISTS `like` (
           `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
           `usnubm` INT(11) NOT NULL,
           `picident` INT(11) NOT NULL,
@@ -65,7 +65,7 @@ try {//TABLE LIKE
 try {//TABLE COMMENT
     $condb = new PDO($dbdsn, $user, $dbpass, $option);
 
-    $sql = "CREATE TABLE `comment` (
+    $sql = "CREATE TABLE IF NOT EXISTS `comment` (
           `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
           `usnubm` INT(11) NOT NULL,
           `picident` INT(11) NOT NULL,

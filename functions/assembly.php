@@ -150,12 +150,11 @@ function get_comments($imgSrc) {
         $stmt->execute(array(':img' => $imgSrc));
 
         $i = 0;
-        $arasml = "";
+        $arasml = [];
         while ($val = $stmt->fetch()) {
             $arasml[$i] = $val;
             $i++;
         }
-        $arasml[$i] = null;
         $stmt->closeCursor();
         return ($arasml);
     } catch (PDOException $e) {
@@ -173,7 +172,7 @@ function inscomment($imgSrc) {
         $stmt->execute(array(':img' => $imgSrc));
 
         $i = 0;
-        $arasml = "";
+        $arasml = [];
         while ($val = $stmt->fetch()) {
             $arasml[$i] = $val;
             $i++;

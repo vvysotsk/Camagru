@@ -11,7 +11,7 @@ function loadMore(lastapicId, imagePerPages) {
         lastapicId = last;
     }
     make_ajax_request("./framework/getassemblpic.php",
-            "img=" + src + "&type=D",
+            "id=" + lastapicId + "&nb=" + imagePerPages,
             function (responseText) {
                 if (responseText === "KO") {
                     return;

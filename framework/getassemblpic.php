@@ -18,7 +18,7 @@ for ($i = 0; $i < count($assemblpic); $i++) {
     $assemblpic[$i]['dislikes'] = dislcount($assemblpic[$i]['img']);
     $assemblpic[$i]['likes'] = likecount($assemblpic[$i]['img']);
     $comments = inscomment($assemblpic[$i]['img']);
-    if ($comments[0] != null) {
+    if (isset($comments[0])) {
         $assemblpic[$i]['comments'] = $comments;
     } else {
         $assemblpic[$i]['comments'] = null;

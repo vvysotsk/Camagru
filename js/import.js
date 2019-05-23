@@ -16,7 +16,7 @@ fileInput.onchange = function (event) {
         var data64Img = canvas.toDataURL(image.type);
         window.URL.revokeObjectURL(file);
 
-        img.src = document.querySelector('input[name="img"]:checked').value; // Set source path
+        img.src = document.querySelector('input[name="img"]:checked').value;
         var split = img.src.split("/");
         var file = split[split.length - 1];
 

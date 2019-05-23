@@ -108,8 +108,10 @@ function camcheck(checkbox) {
             smoke.style.display = "none";
             kitty.style.display = "block";
         }
+        fileimport.style.display = "none";
     }
-    fileimport.style.display = "block";
+    else
+        fileimport.style.display = "block";
     if (fileimport.files.length) {
         var image = new Image();
         var img = new Image();

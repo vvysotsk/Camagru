@@ -2,7 +2,7 @@
 <?php
 include 'database.php';
 
-try {//DROP DATABASE
+try {
     $condb = new PDO($dbdsnlight, $user, $dbpass);
 
     $sql = "DROP DATABASE `" . $dbname . "`";

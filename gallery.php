@@ -49,7 +49,7 @@ $assemblpic = getallassembl();
                         <?php
                         $gallery = "";
                         if ($assemblpic != null) {
-                            for ($i = 0; $assemblpic[$i]; $i++) {
+                            for ($i = 0; isset($assemblpic[$i]); $i++) {
                                 $class = "icon";
                                 if ($assemblpic[$i]['usnubm'] === $_SESSION['id']) {
                                     $class .= " removable";

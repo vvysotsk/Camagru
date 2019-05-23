@@ -27,8 +27,8 @@ if ($assemblpic != "" && array_key_exists("more", $assemblpic)) {
         <div id="views">
             <?php
             $gallery = "";
-            if ($assemblpic != null && $assemblpic['error'] == null) {
-                for ($i = 0; $assemblpic[$i] && $i < $layimg_page; $i++) {
+            if ($assemblpic != null) {
+                for ($i = 0; isset($assemblpic[$i]) && $i < $layimg_page; $i++) {
                     $class = "icon";
                     ?> <div class="toto"></div> <?php
                     if ($assemblpic[$i]['usnubm'] === $_SESSION['id']) {
@@ -37,7 +37,7 @@ if ($assemblpic != "" && array_key_exists("more", $assemblpic)) {
                     $comments = get_comments($assemblpic[$i]['img']);
                     $j = 0;
                     $commentsHTML = "";
-                    while ($comments[$j] != null) {
+                    while (isset($comments[$j])) {
                         $commentsHTML .= "<span class=\"comment\">" . htmlspecialchars($comments[$j]['username']) . ": " . htmlspecialchars($comments[$j]['comment']) . "</span>";
                         $j++;
                     }

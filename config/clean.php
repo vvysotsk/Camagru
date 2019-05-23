@@ -2,7 +2,7 @@
 <?php
 include 'database.php';
 
-try {//CLEAN ALL
+try {
     $condb = new PDO($dbdsn, $user, $dbpass, $option);
 
     $sql = "DELETE FROM `comment`";
